@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sex_array">
+        <item>Мужской</item>
+        <item>Женский</item>
+    </string-array>
+
+    <string-array name="address_array">
+        <item>E-602 1-38</item>
+        <item>E-604 1-39</item>
+        <item>E-605 1-21</item>
+        <item>E-606 1-24</item>
+        <item>E-607 1-55</item>
+        <item>E-350 1-26</item>
+        <item>E-487 1-49</item>
+        <item>E-486 1-28</item>
+        <item>E-488 1-22</item>
+        <item>Будапешт 1-41</item>
+        <item>Лазурная 1-23</item>
+        <item>Жемчужинная 1-18</item>
+    </string-array>
+</resources>
