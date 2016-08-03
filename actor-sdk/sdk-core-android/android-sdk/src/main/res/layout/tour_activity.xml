@@ -17,8 +17,9 @@
         <ImageView
             android:id="@+id/paralax_image"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:adjustViewBounds="true"
+            android:scaleType="fitXY"
             android:src="@drawable/intro_background" />
     </ScrollView>
 
@@ -40,6 +41,7 @@
         android:id="@+id/welcome_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
         android:layout_above="@+id/welcome_text"
         android:layout_centerHorizontal="true"
         android:src="@drawable/intro_logo" />
@@ -54,7 +56,7 @@
         android:paddingBottom="20dp"
         android:paddingTop="20dp">
 
-        <TextView
+       <!-- <TextView
             android:id="@+id/app_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,7 +69,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:text="@string/tour_welcome_subtitle"
-            android:textSize="16sp" />
+            android:textSize="16sp" />-->
     </LinearLayout>
 
     <im.actor.tour.PagerContainer
@@ -143,6 +145,7 @@
             android:background="@android:color/transparent"
             android:minWidth="88dp"
             android:text="@string/tour_sign_in"
+            android:textColor="@android:color/black"
             android:textAllCaps="true"
             android:textSize="14sp" />
 

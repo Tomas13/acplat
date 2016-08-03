@@ -72,10 +72,10 @@ public abstract class BaseAuthFragment extends BaseFragment {
         activity.validateCode(messenger().doValidateCode(code, activity.getTransactionHash()), code);
     }
 
-    protected void signUp(String name, Sex sex, int age, String address) {
+    protected void signUp(String name, Sex sex, int age, String address, int homeNumber) {
         AuthActivity activity = (AuthActivity) getActivity();
         Promise<AuthRes> promise = messenger().doSignup(name, sex, activity.getTransactionHash());
-        ((AuthActivity) getActivity()).signUp(promise, name, sex, age, address);
+        ((AuthActivity) getActivity()).signUp(promise, name, sex, age, address, homeNumber);
     }
 
     protected void startAuth(String name) {
@@ -83,9 +83,9 @@ public abstract class BaseAuthFragment extends BaseFragment {
     }
 
     //OTG method
-    protected void startAuth(String name,  int age, String address, Sex sex){
-        Log.d("fam baseauthfrag: ", name + age + address + sex);
-        ((AuthActivity) getActivity()).startAuth(name, age, address, sex );
+    protected void startAuth(String name,  int age, String address, Sex sex, int homeNumber){
+        Log.d("fam baseauthfrag: ", name + age + address + sex  + homeNumber);
+        ((AuthActivity) getActivity()).startAuth(name, age, address, sex, homeNumber );
     }
 
     protected void switchToEmail() {

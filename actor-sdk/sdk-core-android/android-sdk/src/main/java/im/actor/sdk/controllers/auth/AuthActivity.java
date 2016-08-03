@@ -61,6 +61,7 @@ public class AuthActivity extends BaseFragmentActivity {
 
     private int age;    //OTG
     private String address; //OTG
+    private int homeNumber; //OTG
 
 
     @Override
@@ -85,6 +86,7 @@ public class AuthActivity extends BaseFragmentActivity {
 
         address = preferences.getString("address");         //OTG
         age = preferences.getInt("age", 1);                 //OTG
+        homeNumber = preferences.getInt("homeNumber", 1);                 //OTG
 
         signType = preferences.getInt("signType", signType);
         String savedState = preferences.getString("auth_state");
@@ -106,6 +108,7 @@ public class AuthActivity extends BaseFragmentActivity {
     }
 
     private void updateState(AuthState state, boolean force) {
+
         if (this.state != null && (this.state == state && !force)) {
             return;
         }
@@ -118,6 +121,7 @@ public class AuthActivity extends BaseFragmentActivity {
         preferences.putString("currentName", currentName);
         preferences.putString("address", address);          //OTG
         preferences.putInt("age", age);                     //OTG
+        preferences.putInt("homeNumber", homeNumber);                     //OTG
         preferences.putInt("signType", signType);
         preferences.putString("auth_state", state.toString());
 
@@ -141,7 +145,7 @@ public class AuthActivity extends BaseFragmentActivity {
                 break;
             case SIGN_UP:
                 if (currentName != null && !currentName.isEmpty()) {
-                    startAuth(currentName, age, address, currentSex);
+                    startAuth(currentName, age, address, currentSex, homeNumber);
                 } else {
                     showFragment(new SignUpFragment(), false, false);
                 }
@@ -193,15 +197,18 @@ public class AuthActivity extends BaseFragmentActivity {
 
         } else {
             Log.d("fam", "startAuth(name)");
-            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash, age, address), currentName, currentSex, age, address);
+            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN,
+                    transactionHash, age, address, homeNumber),
+                    currentName, currentSex, age, address, homeNumber);
         }
     }
 
     //OTG
-    public void startAuth(String name, int age1, String address1, Sex sex) {
+    public void startAuth(String name, int age1, String address1, Sex sex, int number) {
         currentName = name;
         currentSex = sex;
         age = age1;
+        homeNumber = number;
         address = address1;
         availableAuthType = ActorSDK.sharedActor().getAuthType();
         AuthState authState;
@@ -221,7 +228,9 @@ public class AuthActivity extends BaseFragmentActivity {
             Log.d("fam", "startAuth(name, add, age)");
 
 //            signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
-            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash, age, address), currentName, currentSex, age, address);
+            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN,
+                    transactionHash, age, address, homeNumber),
+                    currentName, currentSex, age, address, homeNumber);
         }
     }
 
@@ -296,13 +305,15 @@ public class AuthActivity extends BaseFragmentActivity {
                         });
                     } else {
                         if (currentName == null || currentName.isEmpty() ||
-                                age == 0 || address.isEmpty()) {
+                                age == 0 || address.isEmpty() || homeNumber == 0) {
                             updateState(AuthState.SIGN_UP, true);
                         } else {
                             Log.d("fam", "validate code" + age + " " + address);
 
 //                            signUp(messenger().doSignup(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash), currentName, currentSex);
-                            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN, transactionHash, age, address), currentName, currentSex, age, address);
+                            signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN,
+                                    transactionHash, age, address, homeNumber),
+                                    currentName, currentSex, age, address, homeNumber);
                         }
                     }
                 }
@@ -315,10 +326,11 @@ public class AuthActivity extends BaseFragmentActivity {
         });
     }
 
-    public void signUp(Promise<AuthRes> promise, String name, Sex sex, int age1, String address1) {
+    public void signUp(Promise<AuthRes> promise, String name, Sex sex, int age1, String address1, int homeNum) {
         currentName = name;
         currentSex = sex;
         age = age1;
+        homeNumber = homeNum;
         address = address1;
         promise.then(new Consumer<AuthRes>() {
             @Override
@@ -327,7 +339,7 @@ public class AuthActivity extends BaseFragmentActivity {
                 messenger().doCompleteAuth(authRes).then(new Consumer<Boolean>() {
                     @Override
                     public void apply(Boolean aBoolean) {
-
+                        Log.d("famSign", "got to update state");
                         updateState(AuthState.LOGGED_IN);
                     }
                 }).failure(new Consumer<Exception>() {
@@ -415,7 +427,7 @@ public class AuthActivity extends BaseFragmentActivity {
 
 //                                                    signUp(messenger().doSignup(currentName, currentSex!=null?currentSex:Sex.UNKNOWN, transactionHash), currentName, currentSex);
                                                     signUp(messenger().doOTGSignUp(currentName, currentSex != null ? currentSex : Sex.UNKNOWN,
-                                                            transactionHash, age, address), currentName, currentSex, age, address);
+                                                            transactionHash, age, address, homeNumber), currentName, currentSex, age, address, homeNumber);
 
                                                     break;
                                             }

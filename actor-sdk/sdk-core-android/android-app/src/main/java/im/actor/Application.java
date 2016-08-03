@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 import im.actor.core.entity.Peer;
-import im.actor.develop.R;
 import im.actor.sdk.ActorSDK;
 import im.actor.sdk.ActorSDKApplication;
 import im.actor.sdk.ActorStyle;
@@ -29,6 +28,7 @@ import im.actor.sdk.controllers.settings.ActorSettingsField;
 import im.actor.sdk.controllers.settings.BaseActorSettingsActivity;
 import im.actor.sdk.controllers.settings.BaseActorSettingsFragment;
 import im.actor.sdk.intents.ActorIntentFragmentActivity;
+import kz.otgroup.familyvillage.R;
 
 public class Application extends ActorSDKApplication {
 
@@ -46,7 +46,7 @@ public class Application extends ActorSDKApplication {
         ActorSDK.sharedActor().setCallsEnabled(true);
 
         ActorSDK.sharedActor().setTosUrl("http://actor.im");
-        ActorSDK.sharedActor().setPrivacyText("bla bla bla");
+//        ActorSDK.sharedActor().setPrivacyText("bla bla bla");
 
         ActorSDK.sharedActor().setVideoCallsEnabled(true);
 
@@ -85,7 +85,7 @@ public class Application extends ActorSDKApplication {
                 public void onConfigureActionBar(ActionBar actionBar) {
                     super.onConfigureActionBar(actionBar);
                     actionBar.setDisplayShowHomeEnabled(true);
-                    actionBar.setIcon(R.drawable.ic_app_notify);
+//                    actionBar.setIcon(R.drawable.ic_app_notify);
                 }
             };
         }
@@ -106,7 +106,7 @@ public class Application extends ActorSDKApplication {
                 protected void onItemClicked(int id) {
                     super.onItemClicked(id);
                     if (id == R.id.share_test) {
-                        Toast.makeText(getContext(), "Hey", Toast.LENGTH_LONG).show();
+//                        Toast.makeText(getContext(), "Hey", Toast.LENGTH_LONG).show();
                     }
                 }
             };
@@ -139,9 +139,9 @@ public class Application extends ActorSDKApplication {
                         @Override
                         public ActorSettingsCategories getBeforeSettingsCategories() {
                             return new ActorSettingsCategories()
-                                    .addCategory(new ActorSettingsCategory("azaza")
+                                    .addCategory(new ActorSettingsCategory("")
                                             .addField(new ActorSettingsField(R.id.terminateSessions)
-                                                    .setName("blabla")
+                                                    .setName("")
                                                     .setIconResourceId(R.drawable.ic_edit_black_24dp)
                                                     .setRightView(blablaCheckBox)
                                             )
@@ -155,7 +155,7 @@ public class Application extends ActorSDKApplication {
                                 public void onClick(View v) {
                                     switch (v.getId()) {
                                         case R.id.terminateSessions:
-                                            Toast.makeText(v.getContext(), "hey", Toast.LENGTH_LONG).show();
+//                                            Toast.makeText(v.getContext(), "", Toast.LENGTH_LONG).show();
                                             blablaCheckBox.toggle();
                                             break;
                                     }

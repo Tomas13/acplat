@@ -4,24 +4,17 @@
 
 package im.actor.core;
 
-import android.util.Log;
-
 import com.google.j2objc.annotations.ObjectiveCName;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
-import im.actor.core.api.ApiInt32Value;
-import im.actor.core.api.ApiMapValue;
-import im.actor.core.api.ApiMapValueItem;
 import im.actor.core.api.ApiRawValue;
 import im.actor.core.api.ApiSex;
 import im.actor.core.api.ApiAuthSession;
-import im.actor.core.api.ApiStringValue;
 import im.actor.core.api.rpc.ResponseRawRequest;
 import im.actor.core.entity.AuthCodeRes;
 import im.actor.core.entity.AuthRes;
@@ -57,7 +50,6 @@ import im.actor.core.util.ActorTrace;
 import im.actor.core.viewmodel.AppStateVM;
 import im.actor.core.viewmodel.CallVM;
 import im.actor.core.viewmodel.Command;
-import im.actor.core.viewmodel.CommandCallback;
 import im.actor.core.viewmodel.ConversationVM;
 import im.actor.core.viewmodel.DialogGroupsVM;
 import im.actor.core.viewmodel.FileCallback;
@@ -228,16 +220,14 @@ public class Messenger {
      */
     @NotNull
     @ObjectiveCName("doSignupWithName:withSex:withTransaction:withAge:withAddress")
-    public Promise<AuthRes> doOTGSignUp(String name, Sex sex, String transactionHash, int age, String address) {
+    public Promise<AuthRes> doOTGSignUp(String name, Sex sex, String transactionHash, int age, String address, int homeNumber) {
         return new Promise<>((PromiseFunc<AuthRes>) resolver -> {
-            OTGHTTP.signUpRequest(name, sex, transactionHash, age,address)
+            OTGHTTP.signUpRequest(name, sex, transactionHash, age, address, homeNumber)
                     .then(response -> modules.getAuthModule().doSignup(name, sex, transactionHash).then(r -> resolver.result(r)).failure(e -> resolver.error(e)))
                     .failure(e -> resolver.error(e));
 
         });
     }
-
-
 
 
     /**

@@ -51,7 +51,7 @@ public class BaseFragment extends BinderCompatFragment {
 
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
-            actionBar.setTitle(title);
+            actionBar.setTitle("Family Village");
         }
     }
 
@@ -119,7 +119,7 @@ public class BaseFragment extends BinderCompatFragment {
                 if (titleRes != 0) {
                     actionBar.setTitle(titleRes);
                 } else {
-                    actionBar.setTitle(title);
+                    actionBar.setTitle("Family Village");
                 }
                 actionBar.setSubtitle(subtitle);
                 actionBar.setDisplayShowCustomEnabled(showCustom);

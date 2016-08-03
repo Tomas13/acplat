@@ -4,7 +4,7 @@
   -->
 
 <resources>
-    <string name="app_name">Actor</string>
+    <string name="app_name">Family Village</string>
     <string name="app_locale">En</string>
 
     <string name="dialog_ok">OK</string>

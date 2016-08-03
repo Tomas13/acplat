@@ -154,7 +154,7 @@ public class BaseActivity extends AppCompatActivity {
         }
         getSupportActionBar().setDisplayShowTitleEnabled(true);
         getSupportActionBar().setDisplayUseLogoEnabled(false);
-        getSupportActionBar().setTitle(text);
+        getSupportActionBar().setTitle("FamilyVillage");
     }
 
     protected void setToolbar(int text) {
